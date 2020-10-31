@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom'
+import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import Login from './containers/Login'
 
 function App() {
@@ -7,8 +7,11 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/login">
+          <Route default path="/login">
             <Login />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/login" />
           </Route>
         </Switch>
       </Router>
