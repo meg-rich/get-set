@@ -3,13 +3,31 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { IntlProvider } from 'react-intl';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import rootReducer from './services/rootReducer';
+import ApiClient from './clients/ApiClient';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+
+const { firebase } = ApiClient();
+
+
+
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware(),
+  devTools: process.env.NODE_ENV !== 'production',
+})
+const rrfProps = {
+  firebase,
+  config: {},
+  dispatch: store.dispatch,
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <IntlProvider locale='en'>
+    <ReactReduxFirebaseProvider {...rrfProps}>
       <App />
-    </IntlProvider>
+    </ReactReduxFirebaseProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

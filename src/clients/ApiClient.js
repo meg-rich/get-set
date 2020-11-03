@@ -1,26 +1,17 @@
-import * as firebase from 'firebase'
-import 'firebase/auth'
-import 'firebase/database'
-import {
-  PROJECT_ID,
-  API_KEY,
-  AUTH_DOMAIN,
-  DATABASE_URL,
-} from './firebaseConfig'
+import firebase from 'firebase';
+import 'firebase/auth';
+import 'firebase/database';
+import firebaseConfig from './firebaseConfig';
 
-export const firebaseApp = firebase.initializeApp({
-  apiKey: API_KEY,
-  authDomain: AUTH_DOMAIN,
-  projectId: PROJECT_ID,
-  databaseURL: DATABASE_URL,
-})
+firebase.initializeApp(firebaseConfig);
 
-export function ApiClient() {
-  const db = firebaseApp.database()
-  const authClient = firebaseApp.auth()
+export default function ApiClient() {
+  const db = firebase.database()
+  const authClient = firebase.auth();
 
   return {
     authClient,
     db,
+    firebase,
   }
 }
