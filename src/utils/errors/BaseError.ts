@@ -1,15 +1,17 @@
-export const BaseErrorTypes = {
-    UNKNOWN: 'unknown'
+export enum BaseErrorTypes {
+    UNKNOWN = 'unknown'
 }
 
 export class BaseError extends Error {
-    constructor(message, cause) {
+    constructor(
+        public readonly message: string, 
+        public readonly cause?: Error) {
         super(message);
         this.name = message;
         this.cause = cause;
         this.logError();
     }
-    logError() {
+    logError(): void {
         console.group();
         console.error(this);
         console.error(this.cause);

@@ -2,7 +2,7 @@ import React from 'react'
 import { Redirect, Route, BrowserRouter as Router, Switch } from 'react-router-dom'
 import Login from './containers/Login'
 
-function App() {
+function App(): JSX.Element {
   return (
     <div className="App">
       <Router>

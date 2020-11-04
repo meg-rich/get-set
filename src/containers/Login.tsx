@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export default function Login() {
+export default function Login(): JSX.Element {
     return <Container>Login</Container>
 }
 

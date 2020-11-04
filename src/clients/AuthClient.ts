@@ -1,23 +1,18 @@
 import { ApiError, ApiErrorType } from '../utils/errors/ApiError'
 import { AuthError, AuthErrorType } from '../utils/errors/AuthError'
-import ApiClient from './ApiClient';
+import ApiClient, { FirebaseAuthErrorCodes } from './ApiClient'
 
-export function AuthClient () {
+export interface SignInArguments {
+    email: string
+    password: string
+}
+export interface AuthClientMethods {
+    emailSignIn: ({email, password}: SignInArguments) => Promise<void>
+}
+export function AuthClient(): AuthClientMethods {
     const { authClient } = ApiClient();
 
-    const FirebaseAuthErrorCodes = {
-        PERMISSION_DENIED: 'PERMISSION_DENIED',
-        INVALID_EMAIL: 'auth/invalid-email',
-        USER_DISABLED: 'auth/user-disabled',
-        USER_NOT_FOUND: 'auth/user-not-found',
-        WRONG_PASSWORD: 'auth/wrong-password',
-        ACTION_CODE_EXPIRED: 'auth/expired-action-code',
-        ACTION_CODE_INVALID: 'auth/invalid-action-code',
-        WEAK_PASSWORD: 'auth/weak-password',
-        TOO_MANY_REQUESTS: 'auth/too-many-requests',
-      }
-
-    const emailLogin = async (email, password) => {
+    async function emailLogin (email: string, password: string): Promise<firebase.default.auth.UserCredential> {
         try {
             const response = await authClient.signInWithEmailAndPassword(
                 email,
@@ -40,7 +35,15 @@ export function AuthClient () {
         }
     }
 
+    async function emailSignIn ({email, password}:SignInArguments): Promise<void> {
+        const { user } = await emailLogin(email, password)
+        if (user) {
+            return
+        }
+        throw new Error('Unknown Error')
+    }
+
     return {
-        emailLogin
+        emailSignIn
     }
 }
