@@ -1,7 +1,7 @@
 import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/database';
-import firebaseConfig from './firebaseConfig';
+import { firebaseConfig } from './firebaseConfig';
 
 export enum FirebaseAuthErrorCodes {
   PERMISSION_DENIED = 'PERMISSION_DENIED',

@@ -6,10 +6,20 @@ export interface SignInArguments {
     email: string
     password: string
 }
-export interface AuthClientMethods {
-    emailSignIn: ({email, password}: SignInArguments) => Promise<void>
+export interface AuthCredentials {
+    uid: string
+    email: string | null
 }
-export function AuthClient(): AuthClientMethods {
+export interface AuthClientMethods {
+    getCurrentUser: () => (firebase.default.User | null) 
+    emailSignIn: ({email, password}: SignInArguments) => Promise<void>
+    getToken: () => Promise<string>
+    signOut: () => Promise<void>
+    subscribeToAuthChanges: (
+        onAuthChange: (args: AuthCredentials | null) => void, 
+        onError: (e: Error) => void) => void
+}
+export default function AuthClient(): AuthClientMethods {
     const { authClient } = ApiClient();
 
     async function emailLogin (email: string, password: string): Promise<firebase.default.auth.UserCredential> {
@@ -37,13 +47,51 @@ export function AuthClient(): AuthClientMethods {
 
     async function emailSignIn ({email, password}:SignInArguments): Promise<void> {
         const { user } = await emailLogin(email, password)
+        console.log(user)
         if (user) {
             return
         }
         throw new Error('Unknown Error')
     }
 
+    function signOut(): Promise<void> {
+        return authClient.signOut()
+    }
+
+    async function getToken(): Promise<string> {
+        const token = await authClient.currentUser?.getIdToken()
+        if(!token) {
+            throw new Error('Not logged in')
+        }
+        return token
+    }
+
+    function getCurrentUser(): (firebase.default.User | null) {
+        return authClient.currentUser
+    }
+
+     function subscribeToAuthChanges(
+        onAuthChange: (args: AuthCredentials | null) => void,
+        onError: (e: Error) => void
+    ): void {
+        authClient.onIdTokenChanged((user): void => {
+            if (!user) {
+                onAuthChange(null)
+            } else {
+                try {
+                    onAuthChange({ uid: user.uid, email: user.email })
+                } catch (e) {
+                    onError(e)
+                }
+            }
+        })
+    }
+
     return {
-        emailSignIn
+        getCurrentUser,
+        emailSignIn,
+        getToken,
+        signOut,
+        subscribeToAuthChanges
     }
 }
