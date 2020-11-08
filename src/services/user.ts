@@ -1,4 +1,10 @@
-import { createAsyncThunk, createSlice, current, PayloadAction, SerializedError } from "@reduxjs/toolkit";
+import {
+    createAsyncThunk,
+    createSlice,
+    current,
+    PayloadAction,
+    SerializedError,
+} from '@reduxjs/toolkit'
 import AuthClient from '../clients/AuthClient'
 import { User } from '../clients/UserClient'
 
@@ -17,7 +23,7 @@ export interface UserState {
 }
 
 interface SignInParams {
-    email: string,
+    email: string
     password: string
 }
 
@@ -28,7 +34,13 @@ const initialState: UserState = {
     token: null,
 }
 
-const { emailSignIn, getToken, getCurrentUser, signOut, subscribeToAuthChanges } = AuthClient()
+const {
+    emailSignIn,
+    getToken,
+    getCurrentUser,
+    signOut,
+    subscribeToAuthChanges,
+} = AuthClient()
 
 export const requestSignIn = createAsyncThunk(
     createAuthActionType('login'),
@@ -50,30 +62,37 @@ export const subscribeAuth = createAsyncThunk(
         ): Promise<void> => {
             const { uid } = params || {}
 
-            if(!uid) {
+            if (!uid) {
                 thunkApi.dispatch(authChange(null))
                 return
             }
-            console.log("got here")
             const token = await getToken()
             const currentUser = getCurrentUser()
 
             thunkApi.dispatch(authSlice.actions.authAddToken(token))
             if (currentUser) {
-                const { displayName, email, photoURL, phoneNumber } = currentUser
+                const {
+                    displayName,
+                    email,
+                    photoURL,
+                    phoneNumber,
+                } = currentUser
                 const newUser = {
                     displayName,
                     email,
                     photoURL,
                     phoneNumber,
-                    uid
+                    uid,
                 }
                 thunkApi.dispatch(authSlice.actions.authChange(newUser))
             }
         }
         subscribeToAuthChanges(
             (args) => {
-                handleAuthUpdate(args)
+                handleAuthUpdate(args).then(
+                    () => {},
+                    () => {}
+                )
             },
             (error) => {
                 throw error

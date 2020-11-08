@@ -11,18 +11,22 @@ export interface AuthCredentials {
     email: string | null
 }
 export interface AuthClientMethods {
-    getCurrentUser: () => (firebase.default.User | null) 
-    emailSignIn: ({email, password}: SignInArguments) => Promise<void>
+    getCurrentUser: () => firebase.default.User | null
+    emailSignIn: ({ email, password }: SignInArguments) => Promise<void>
     getToken: () => Promise<string>
     signOut: () => Promise<void>
     subscribeToAuthChanges: (
-        onAuthChange: (args: AuthCredentials | null) => void, 
-        onError: (e: Error) => void) => void
+        onAuthChange: (args: AuthCredentials | null) => void,
+        onError: (e: Error) => void
+    ) => void
 }
 export default function AuthClient(): AuthClientMethods {
-    const { authClient } = ApiClient();
+    const { authClient } = ApiClient()
 
-    async function emailLogin (email: string, password: string): Promise<firebase.default.auth.UserCredential> {
+    async function emailLogin(
+        email: string,
+        password: string
+    ): Promise<firebase.default.auth.UserCredential> {
         try {
             const response = await authClient.signInWithEmailAndPassword(
                 email,
@@ -45,9 +49,11 @@ export default function AuthClient(): AuthClientMethods {
         }
     }
 
-    async function emailSignIn ({email, password}:SignInArguments): Promise<void> {
+    async function emailSignIn({
+        email,
+        password,
+    }: SignInArguments): Promise<void> {
         const { user } = await emailLogin(email, password)
-        console.log(user)
         if (user) {
             return
         }
@@ -60,17 +66,17 @@ export default function AuthClient(): AuthClientMethods {
 
     async function getToken(): Promise<string> {
         const token = await authClient.currentUser?.getIdToken()
-        if(!token) {
+        if (!token) {
             throw new Error('Not logged in')
         }
         return token
     }
 
-    function getCurrentUser(): (firebase.default.User | null) {
+    function getCurrentUser(): firebase.default.User | null {
         return authClient.currentUser
     }
 
-     function subscribeToAuthChanges(
+    function subscribeToAuthChanges(
         onAuthChange: (args: AuthCredentials | null) => void,
         onError: (e: Error) => void
     ): void {
@@ -92,6 +98,6 @@ export default function AuthClient(): AuthClientMethods {
         emailSignIn,
         getToken,
         signOut,
-        subscribeToAuthChanges
+        subscribeToAuthChanges,
     }
 }

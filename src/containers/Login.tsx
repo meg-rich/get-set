@@ -7,22 +7,29 @@ import { requestSignIn } from '../services/user'
 
 export default function Login(): JSX.Element {
     const dispatch = useReduxDispatch()
-    const { register, handleSubmit } = useForm();
-    const onSubmit = (data: { email: string, password: string }) => {
-        dispatch(requestSignIn(data))
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const { register, handleSubmit } = useForm()
+    const onSubmit = async (data: { email: string; password: string }) => {
+        await dispatch(requestSignIn(data))
     }
     return (
-        <Container>
+        <LoginContainer>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <input name="email" defaultValue="anne@example.com" ref={register}/>
-                <input name="password" type="password" ref={register}/>
+                <input
+                    name="email"
+                    defaultValue="anne@example.com"
+                    ref={register}
+                />
+                <input name="password" type="password" ref={register} />
                 <button type="submit">Login</button>
             </form>
-        </Container>
+        </LoginContainer>
     )
 }
 
-const Container = styled.div`
-    margin: 20px;
-    color: red;
+const LoginContainer = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 `

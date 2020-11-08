@@ -7,11 +7,11 @@ export interface ThemeProviderProps {
     children: JSX.Element
 }
 
-export function ThemeProvider({ children }: ThemeProviderProps): JSX.Element{
+export function ThemeProvider({ children }: ThemeProviderProps): JSX.Element {
     return (
         <DefaultThemeProvider theme={theme}>
             <ThemeContext.Provider value={theme}>
-                { children }
+                {children}
             </ThemeContext.Provider>
         </DefaultThemeProvider>
     )

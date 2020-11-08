@@ -37,5 +37,5 @@ export const theme: AppTheme = {
         default: '16px',
         md: '18px',
         lg: '24px',
-    }
+    },
 }

@@ -8,7 +8,9 @@ export default function Home(): JSX.Element {
     const dispatch = useReduxDispatch()
     return (
         <Container>
-            <button onClick={() => dispatch(requestSignOut())}>Sign Out</button>
+            <button type="button" onClick={() => dispatch(requestSignOut())}>
+                Sign Out
+            </button>
         </Container>
     )
 }
