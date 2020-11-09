@@ -1,27 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { createGlobalStyle } from 'styled-components'
-import reset from 'styled-reset'
+import { Helmet } from 'react-helmet'
+
+import { store } from './services'
+import { GlobalStyle } from './styles'
 import { ThemeProvider } from './styles/ThemeProvider'
 import App from './App'
-import { store } from './services'
-
-const GlobalStyle = createGlobalStyle`
-  #root {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-  }
-
-  ${reset}
-`
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <ThemeProvider>
                 <>
+                    <Helmet>
+                        <link
+                            href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;600&display=swap"
+                            rel="stylesheet"
+                        />
+                    </Helmet>
                     <GlobalStyle />
                     <App />
                 </>

@@ -41,6 +41,7 @@ const StyledTextInput = styled.input`
     }};
     border: 1px solid ${(props: StyledProps) => props.theme.colors.lightGray};
     color: ${(props: StyledProps) => props.theme.colors.lightGray};
+    font-family: 'Libre Franklin', sans-serif;
     font-size: ${(props: StyledProps) => props.theme.font.size.default};
     &:focus {
         border: 2px solid

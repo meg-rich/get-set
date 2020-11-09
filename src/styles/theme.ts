@@ -5,6 +5,8 @@ export interface AppTheme {
         brandRed: string
         brandOrange: string
         brandYellow: string
+        brandGreen: string
+        brandBrightBlue: string
         white: string
         lightGray: string
         mediumGray: string
@@ -37,9 +39,11 @@ export const theme: AppTheme = {
     colors: {
         brandDarkBlue: '#16131a',
         brandBlue: '#2d4059',
+        brandBrightBlue: '#3FB4F0',
         brandRed: '#ea5455',
         brandOrange: '#f07b3f',
         brandYellow: '#ffd460',
+        brandGreen: '#A0EA54',
         white: '#ffffff',
         lightGray: '#dadfe1',
         mediumGray: '#939393',
@@ -56,7 +60,7 @@ export const theme: AppTheme = {
         },
         weights: {
             normal: '400',
-            bold: '700',
+            bold: '600',
         },
     },
     spacing: {
