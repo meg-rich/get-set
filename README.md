@@ -1,9 +1,6 @@
 # Coming soon! This is a work in progress.
 
-
-## Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### I'm using this project to become a little more familiar with typescript, redux, redux-thunk, and styled components.
 
 ## Available Scripts
 
