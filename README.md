@@ -1,6 +1,7 @@
 # Coming soon! This is a work in progress.
 
-#### I'm using this project to become a little more familiar with typescript, redux, redux-thunk, and styled components.
+ I'm using this project to become a little more familiar with typescript, redux, redux-thunk, and styled components.
+ 
 
 ## Available Scripts
 
