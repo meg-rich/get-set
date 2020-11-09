@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { useSelector, shallowEqual } from 'react-redux'
-import { useAuthListener } from './hooks/useAuthListener'
+import useAuthListener from './hooks/useAuthListener'
 
 import { useSubdomain } from './hooks/useSubdomain'
 import { selectUserId } from './services/user'
@@ -52,7 +52,7 @@ export default function App(): JSX.Element {
 
 const Container = styled.div`
     background-color: ${(props: { theme: AppTheme }) =>
-        props.theme.colors.brandBlue};
+        props.theme.colors.brandDarkBlue};
     width: 100%;
     height: 100%;
 `

@@ -1,20 +1,23 @@
+/* eslint-disable no-console */
 export enum BaseErrorTypes {
-    UNKNOWN = 'unknown'
+    UNKNOWN = 'unknown',
 }
 
 export class BaseError extends Error {
     constructor(
-        public readonly message: string, 
-        public readonly cause?: Error) {
-        super(message);
-        this.name = message;
-        this.cause = cause;
-        this.logError();
+        public readonly message: string,
+        public readonly cause?: Error
+    ) {
+        super(message)
+        this.name = message
+        this.cause = cause
+        this.logError()
     }
+
     logError(): void {
-        console.group();
-        console.error(this);
-        console.error(this.cause);
-        console.groupEnd();
+        console.group()
+        console.error(this)
+        console.error(this.cause)
+        console.groupEnd()
     }
 }

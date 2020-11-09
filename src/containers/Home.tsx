@@ -15,7 +15,4 @@ export default function Home(): JSX.Element {
     )
 }
 
-const Container = styled.div`
-    margin: 20px;
-    color: red;
-`
+const Container = styled.div``

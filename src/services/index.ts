@@ -27,6 +27,3 @@ if (process.env.NODE_ENV !== 'production') {
         window.state = store.getState()
     })
 }
-
-
-

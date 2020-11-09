@@ -22,7 +22,7 @@ const messages: ErrorMessage = {
 
 export class ApiError extends BaseError {
     constructor(
-        public readonly type: ApiErrorType, 
+        public readonly type: ApiErrorType,
         public readonly cause?: Error
     ) {
         super(messages[type] || DEFAULT_MESSAGE, cause)

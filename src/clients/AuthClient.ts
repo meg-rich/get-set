@@ -33,7 +33,8 @@ export default function AuthClient(): AuthClientMethods {
                 password
             )
             return response
-        } catch (e) {
+        } catch (_e) {
+            const e = _e as firebase.default.auth.AuthError
             switch (e.code) {
                 case FirebaseAuthErrorCodes.USER_NOT_FOUND:
                     throw new AuthError(AuthErrorType.USER_NOT_FOUND)

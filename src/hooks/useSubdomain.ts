@@ -1,4 +1,4 @@
- /* eslint-disable no-restricted-globals */
+/* eslint-disable no-restricted-globals */
 import { useMemo } from 'react'
 
 export interface Domains {

@@ -1,7 +1,8 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "jest/globals": true
     },
     "extends": [
         "airbnb-typescript",
@@ -23,7 +24,8 @@ module.exports = {
     "plugins": [
         "react",
         "@typescript-eslint",
-        "prettier"
+        "prettier",
+        "jest"
     ],
     "rules": {
          // NOTE: conflicts with prettier
@@ -49,6 +51,14 @@ module.exports = {
     "settings": {
         "react": {
             "version": "detect"
-        }
+        },
+        "exclude": ["node_modules", ".vscode", "**/*.test.ts","dist"],
+        "include": ["**/*.{ts,tsx,js,jsx}"],
+        "import/resolver": {
+          "node": {
+            "paths": ["src", ".storybook"],
+            "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
+          }
+        },
     }
 };

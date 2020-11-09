@@ -1,7 +1,6 @@
 import {
     createAsyncThunk,
     createSlice,
-    current,
     PayloadAction,
     SerializedError,
 } from '@reduxjs/toolkit'
@@ -131,7 +130,6 @@ const authSlice = createSlice({
             draft.error = action.error
         })
         builder.addCase(subscribeAuth.rejected, (draft, action) => {
-            console.log('ACTION', action)
             draft.error = action.error
             draft.loading = false
         })
